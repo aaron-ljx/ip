@@ -120,6 +120,9 @@ public class ParsedAnswerHandler {
             case "update deadline":
 
             case "update event":
+                if (pa.getDate() != null) {
+                    TaskList.updateDate(pa.getIndex(), pa.getDate());
+                }
                 return TaskList.updateDescription(pa.getIndex(), pa.getDesc());
         }
 

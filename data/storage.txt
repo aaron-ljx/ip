@@ -2,5 +2,6 @@ T,0,asdfasdf
 T,1,23342342
 T,1,234234
 T,0,blahla
-T,1,asdfasdf
-D,0,asdfafsd , 2/2/22
+T,1,asdfds 
+D,0,asdfasdf , 2/2/22
+D,1,asdfsda , 22/22/22
