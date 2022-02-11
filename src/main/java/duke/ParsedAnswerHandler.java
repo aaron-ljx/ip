@@ -114,6 +114,13 @@ public class ParsedAnswerHandler {
 
             case "find":
                 return TaskList.find(pa.getDesc());
+
+            case "update todo":
+
+            case "update deadline":
+
+            case "update event":
+                return TaskList.updateDescription(pa.getIndex(), pa.getDesc());
         }
 
         return "-1";

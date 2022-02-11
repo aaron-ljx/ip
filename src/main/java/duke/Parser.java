@@ -117,6 +117,77 @@ public class Parser {
                     return pa;
                 }
 
+            case "update":
+                String[] parsedUpdateString = parsedString[1].toLowerCase().split(" ", 2);
+                try {
+                    switch (parsedUpdateString[0]) {
+                        case "todo":
+                            String[] parsedToDoUpdate = parsedUpdateString[1].split(" ", 2);
+                            try {
+                                int index = Integer.parseInt(parsedToDoUpdate[0]);
+                                String updatedDesc = parsedToDoUpdate[1];
+                                ParsedAnswer pa = new ParsedAnswer("update todo", index);
+                                pa.setDesc(updatedDesc);
+                                return pa;
+
+                            } catch (NumberFormatException e) {
+                                ParsedAnswer pa = new ParsedAnswer("error", -1);
+                                pa.setDesc("Please specify an item.");
+                                return pa;
+                            }
+
+                        case "event":
+                            String[] parsedEventUpdate = parsedUpdateString[1].split(" ", 2);
+                            try {
+                                int index = Integer.parseInt(parsedEventUpdate[0]);
+                                String[] parsedEventDescAndDate = parsedEventUpdate[1].split("/by", 2);
+                                ParsedAnswer pa = new ParsedAnswer("update event", index);
+                                if (parsedEventDescAndDate.length <= 1) {
+                                    pa.setDesc(parsedEventDescAndDate[0]);
+                                } else {
+                                    pa.setDesc(parsedEventDescAndDate[0]);
+                                    pa.setDate(parsedEventDescAndDate[1]);
+                                }
+
+                                return pa;
+
+                            } catch (NumberFormatException e) {
+                                ParsedAnswer pa = new ParsedAnswer("error", -1);
+                                pa.setDesc("Please specify an item.");
+                                return pa;
+                            }
+
+                        case "deadline":
+                            String[] parsedDeadlineUpdate = parsedUpdateString[1].split(" ", 2);
+                            try {
+                                int index = Integer.parseInt(parsedDeadlineUpdate[0]);
+                                String[] parsedDeadlineDescAndDate =parsedDeadlineUpdate[1].split("/at", 2);
+                                ParsedAnswer pa = new ParsedAnswer("update deadline", index);
+                                if (parsedDeadlineDescAndDate.length <= 1) {
+                                    pa.setDesc(parsedDeadlineDescAndDate[0]);
+                                } else {
+                                    pa.setDesc(parsedDeadlineDescAndDate[0]);
+                                    pa.setDate(parsedDeadlineDescAndDate[1]);
+                                }
+
+                                return pa;
+
+                            } catch (NumberFormatException e) {
+                                ParsedAnswer pa = new ParsedAnswer("error", -1);
+                                pa.setDesc("Please specify an item.");
+                                return pa;
+                            }
+                        default:
+                            ParsedAnswer pa = new ParsedAnswer("error", -1);
+                            pa.setDesc("Sorry, but I have no idea what you want to update.");
+                            return pa;
+                    }
+
+                } catch (Exception e) {
+                    ParsedAnswer pa = new ParsedAnswer("error", -1);
+                    pa.setDesc("There has been an error in updating your item. Please try again.");
+                    return pa;
+                }
             default:
                 ParsedAnswer pa = new ParsedAnswer("error", -1);
                 pa.setDesc("Sorry, but I have no idea what you mean.");

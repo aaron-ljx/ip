@@ -1,5 +1,8 @@
 package duke;
 
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 /**
@@ -16,10 +19,45 @@ public class TaskList {
         Storage.taskList.add(task);
     }
 
+    static String updateDescription(int idx, String desc) {
+        assertTaskListNotNull();
+        int index = idx - 1;
+        try {
+            Task selectedTask = Storage.taskList.get(index);
+            selectedTask.setDescription(desc);
+            Storage.taskList.remove(index);
+            Storage.taskList.add(index, selectedTask);
+            Storage s = new Storage();
+            s.save();
+            return "Successfully updated task.";
+        } catch (IndexOutOfBoundsException e) {
+            return "Item not found in list.";
+        }
+    }
+
+    static String updateDate(int idx, String date) {
+        int index = idx - 1;
+        try {
+            LocalDate updatedDate = LocalDate.parse(date);
+            Task selectedTask = Storage.taskList.get(index);
+            selectedTask.setDate(updatedDate);
+            Storage.taskList.remove(index);
+            Storage.taskList.add(index, selectedTask);
+            Storage s = new Storage();
+            s.save();
+            return "Successfully updated task.";
+        } catch (IndexOutOfBoundsException e) {
+            return "Item not found in list.";
+        } catch (DateTimeParseException e) {
+            return "Not a valid date.";
+        }
+    }
+
     static String delete(int idx) {
         assertTaskListNotNull();
+        int index = idx - 1;
         try {
-            Storage.taskList.remove(idx - 1);
+            Storage.taskList.remove(index);
             Storage s = new Storage();
             s.save();
             return "Successfully deleted task.";

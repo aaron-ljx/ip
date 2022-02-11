@@ -7,15 +7,14 @@ import java.time.format.DateTimeParseException;
 public class Deadline extends Task {
 
     protected String by;
-    protected LocalDate parsedBy;
 
     public Deadline(String description, String by) {
         super(description);
         this.by = by;
         try {
-            parsedBy = LocalDate.parse(by);
+            date = LocalDate.parse(by);
         } catch (DateTimeParseException e) {
-            parsedBy = null;
+            date = null;
         }
     }
 
@@ -25,9 +24,9 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        if (parsedBy != null) {
-            String date =  parsedBy.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
-            return "[D]" + "[" + this.getStatusIcon() + "] " + description + " (by: " + date + ")";
+        if (date != null) {
+            String dateBy =  date.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+            return "[D]" + "[" + this.getStatusIcon() + "] " + description + " (by: " + dateBy + ")";
         } else {
             return "[D]" + "[" + this.getStatusIcon() + "] " + description + " (by: " + by + ")";
         }
