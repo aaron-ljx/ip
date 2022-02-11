@@ -4,4 +4,5 @@ T,1,234234
 T,0,blahla
 T,1,asdfds 
 D,0,asdfasdf , 2/2/22
-D,1,asdfsda , 22/22/22
+D,1,, 22/22/22
+E,1,, 2/22/34

@@ -38,7 +38,7 @@ public class TaskList {
     static String updateDate(int idx, String date) {
         int index = idx - 1;
         try {
-            LocalDate updatedDate = LocalDate.parse(date);
+            LocalDate updatedDate = LocalDate.parse(date.replaceAll("\\s+",""));
             Task selectedTask = Storage.taskList.get(index);
             selectedTask.setDate(updatedDate);
             Storage.taskList.remove(index);

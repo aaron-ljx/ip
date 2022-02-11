@@ -18,9 +18,9 @@ public class Parser {
     String getCommandThroughRegex(String regex) {
         String command = "";
         if (regex.equalsIgnoreCase("/by")) {
-            command = "event";
-        } else if (regex.equalsIgnoreCase("/at")) {
             command = "deadline";
+        } else if (regex.equalsIgnoreCase("/at")) {
+            command = "event";
         } else {
             command = "todo";
         }
@@ -140,11 +140,14 @@ public class Parser {
                             String[] parsedEventUpdate = parsedUpdateString[1].split(" ", 2);
                             try {
                                 int index = Integer.parseInt(parsedEventUpdate[0]);
-                                String[] parsedEventDescAndDate = parsedEventUpdate[1].split("/by", 2);
+                                String[] parsedEventDescAndDate = parsedEventUpdate[1].split("/at", 2);
                                 ParsedAnswer pa = new ParsedAnswer("update event", index);
                                 if (parsedEventDescAndDate.length <= 1) {
+                                    System.out.println("only desc");
                                     pa.setDesc(parsedEventDescAndDate[0]);
                                 } else {
+                                    System.out.println("descdate");
+                                    System.out.println(parsedEventDescAndDate[1]);
                                     pa.setDesc(parsedEventDescAndDate[0]);
                                     pa.setDate(parsedEventDescAndDate[1]);
                                 }
@@ -161,7 +164,7 @@ public class Parser {
                             String[] parsedDeadlineUpdate = parsedUpdateString[1].split(" ", 2);
                             try {
                                 int index = Integer.parseInt(parsedDeadlineUpdate[0]);
-                                String[] parsedDeadlineDescAndDate =parsedDeadlineUpdate[1].split("/at", 2);
+                                String[] parsedDeadlineDescAndDate =parsedDeadlineUpdate[1].split("/by", 2);
                                 ParsedAnswer pa = new ParsedAnswer("update deadline", index);
                                 if (parsedDeadlineDescAndDate.length <= 1) {
                                     pa.setDesc(parsedDeadlineDescAndDate[0]);
